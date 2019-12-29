@@ -12,11 +12,11 @@
 		<section class="wrapper style1 align-center">
 				<div id=menu>
 					<ul >
-						<li><a href="#loadset">負載設定  </a>&rarr;
-						<li><a href="#runset">運轉條件  </a>&rarr;
-						<li><a href="#cacal">額定動負荷計算  </a>&rarr;
-						<li><a href="#cacal">軸徑選定  </a>&rarr;
-						<li><a href="#nutset">螺帽選定  </a>&rarr;			
+						<li><a href="#loadset">負載設定</a>
+						<li><a href="#runset">運轉條件</a>
+						<li><a href="#cacal">額定動負荷計算</a>
+						<li><a href="#cacal">軸徑選定</a>
+						<li><a href="#nutset">螺帽選定</a>			
 						<li><a href="#lifecal">壽命計算</a>
 					</ul>
 				</div>
@@ -63,7 +63,7 @@
 					 <div class="field half" style="width:25%">								
 							<button  onClick="self.location.href='#runset'">下一步</button>
 					</div>
-					 <div style="height:450px;"></div>
+					 <div style="height:350px;"></div>
 					 <div id="runset" style="height:100px;"></div>
 					 <h3 >運轉條件</h3>
 					<form method="post">
@@ -121,7 +121,7 @@
 							<button  onClick="self.location.href='#cacal'">下一步</button>
 					</div>
 					
-					 <div style="height:200px;"></div>
+					 <div style="height:100px;"></div>
 					 <div id="cacal" style="height:100px;"></div>
 					 <h3 >額定動負荷計算</h3>
 					<form method="post">						
@@ -173,7 +173,7 @@
 					<div class="field half" style="width:25%">								
 						<button  onClick="self.location.href='#nutset'">下一步</button>
 					</div>					
-					<div style="height:400px;"></div>
+					<div style="height:200px;"></div>
 					<div id="nutset" style="height:100px;"></div>
 					 <h3 >螺帽選定</h3>
 					<form method="post">
@@ -258,7 +258,7 @@
 							<div class="field half" style="width:25%">								
 								<button  onClick="self.location.href='#lifecal'">下一步</button>
 						</div>
-					 <div style="height:400px;"></div>
+					 <div style="height:200px;"></div>
 					 <div id="lifecal" style="height:100px;"></div>
 					<h3>壽命計算</h3>
 					<form method="post">						
@@ -274,7 +274,7 @@
 							<label for="message">壽命結果</label>
 							<output id="liferesult"></output>
 						</div>	
-						<br>  <br>  <br>  <br>   <br> 
+						<div style="height:150px;"></div>
 						<div class="field half">
 							<label for="name">選用螺桿直徑(mm)</label>
 							<output id="od"></output>
@@ -288,7 +288,6 @@
 						  <output id="rpmresult"></output>
 						</div>						
 					</form>
-					<br><br><br><br><br>
 						<div class="field half" style="width:25%">								
 							<button  onClick="self.location.href='#nutset'">上一步</button>
 						</div>
