@@ -1,4 +1,103 @@
 var mydata = JSON.parse(JSON.stringify(ALL)); //將js檔案讀出來
+var table = JSON.parse(JSON.stringify(Language)); //將js檔案讀出來
+var lang=0;
+var confirm = ["符合需求","Confirm"]
+var notconfirm = ["不符合需求","Not confirm"]
+var nutcor = ["無此螺帽","No such nut"]
+var ftypetext = [["有法蘭","無法蘭","方形螺帽"],["Flange type","None flange type","Square nut"]]
+var ftypevalue = ["F","R","S"]
+var ntypetext = [["單螺帽","雙螺帽","偏位導程"],["Single nut","Double nut","Lead offset nut"]]
+var ntypevalue = ["S","D","O"]
+var ctypetext = [["端塞","內循環","端蓋","外循環圓周型","外循環圓周型(無固定座)","外循環管凸出型"],["End decector"," Internal ball circulation"," External extrusive circulation"," External immersion circulation"," External immersion circulation ( non-bracked)"," External extrusive circulation"]]
+var ctypevalue = ["D","I","K","W","B","V"]
+var suggestodtext = ["建議最小外徑:","Suggest min OD:"]
+var suggestdltext = ["建議最小動負荷:","Suggest dynamic load:"]
+var suggestldtext = ["建議最小導程:","Suggest min lead:"]
+
+function change(language) {
+	lang = language;
+	document.getElementById("LoadSet").innerHTML=table[language].LoadSet;
+	document.getElementById("TableW").innerHTML=table[language].TableW;
+	document.getElementById("WpW").innerHTML=table[language].WpW;
+	document.getElementById("u").innerHTML=table[language].u;
+	document.getElementById("AF").innerHTML=table[language].AF;
+	document.getElementById("MaxV").innerHTML=table[language].MaxV;
+	document.getElementById("MaxRpm").innerHTML=table[language].MaxRpm;
+	document.getElementById("MinLead").innerHTML=table[language].MinLead;
+	document.getElementById("ChooseLead").innerHTML=table[language].ChooseLead;
+	document.getElementById("RunSet").innerHTML=table[language].RunSet;
+	document.getElementById("G0L").innerHTML=table[language].G0L;
+	document.getElementById("G0F").innerHTML=table[language].G0F;
+	document.getElementById("G0T").innerHTML=table[language].G0T;
+	document.getElementById("G1L").innerHTML=table[language].G1L;
+	document.getElementById("G1F").innerHTML=table[language].G1F;
+	document.getElementById("G1T").innerHTML=table[language].G1T;
+	document.getElementById("G2L").innerHTML=table[language].G2L;
+	document.getElementById("G2F").innerHTML=table[language].G2F;
+	document.getElementById("G2T").innerHTML=table[language].G2T;
+	document.getElementById("MeanL").innerHTML=table[language].MeanL;
+	document.getElementById("MeanRpm").innerHTML=table[language].MeanRpm;
+	document.getElementById("BasicDload").innerHTML=table[language].BasicDload;
+	document.getElementById("Rlife").innerHTML=table[language].Rlife;
+	document.getElementById("SafeC").innerHTML=table[language].SafeC;
+	document.getElementById("MinLoad").innerHTML=table[language].MinLoad;
+	document.getElementById("ScrewDset").innerHTML=table[language].ScrewDset;
+	document.getElementById("MaxStork").innerHTML=table[language].MaxStork;
+	document.getElementById("NutL").innerHTML=table[language].NutL;
+	document.getElementById("Unthread").innerHTML=table[language].Unthread;
+	document.getElementById("Shaftmount").innerHTML=table[language].Shaftmount;
+	document.getElementById("MinD").innerHTML=table[language].MinD;
+	document.getElementById("SupSup").innerHTML=table[language].SupSup;
+	document.getElementById("FixSup").innerHTML=table[language].FixSup;
+	document.getElementById("FixFix").innerHTML=table[language].FixFix;
+	document.getElementById("FixFree").innerHTML=table[language].FixFree;
+	document.getElementById("NutSet").innerHTML=table[language].NutSet;
+	document.getElementById("Flangetype").innerHTML=table[language].Flangetype;
+	document.getElementById("Nutype").innerHTML=table[language].Nutype;
+	document.getElementById("CirculType").innerHTML=table[language].CirculType;
+	document.getElementById("Choosenut").innerHTML=table[language].Choosenut;
+	document.getElementById("Suggestod").innerHTML=table[language].Suggestod;
+	document.getElementById("Suggestlead").innerHTML=table[language].Suggestlead;
+	document.getElementById("BD").innerHTML=table[language].BD;
+	document.getElementById("ET").innerHTML=table[language].ET;
+	document.getElementById("Suggestca").innerHTML=table[language].Suggestca;
+	document.getElementById("Sload").innerHTML=table[language].Sload;
+	document.getElementById("NutOD").innerHTML=table[language].NutOD;
+	document.getElementById("Sload").innerHTML=table[language].Sload;
+	document.getElementById("NutOD").innerHTML=table[language].NutOD;
+	document.getElementById("NutLen").innerHTML=table[language].NutLen;
+	document.getElementById("LifeCal").innerHTML=table[language].LifeCal;
+	document.getElementById("NutDynamic").innerHTML=table[language].NutDynamic;
+	document.getElementById("Mrpm").innerHTML=table[language].Mrpm;
+	document.getElementById("Mload").innerHTML=table[language].Mload;
+	document.getElementById("SO").innerHTML=table[language].SO;
+	document.getElementById("LifeP").innerHTML=table[language].LifeP;
+	document.getElementById("LifeR").innerHTML=table[language].LifeR;
+	document.getElementById("CS").innerHTML=table[language].CS;
+	document.getElementById("Drpm").innerHTML=table[language].Drpm;
+	document.getElementById("RpmR").innerHTML=table[language].RpmR;
+	for (let i = 0; i < document.getElementsByName("Pstep").length; i++) {
+		document.getElementsByName("Pstep")[i].innerHTML=table[language].Pstep;
+		
+	}
+	for (let i = 0; i < document.getElementsByName("Nstep").length; i++) {
+		document.getElementsByName("Nstep")[i].innerHTML=table[language].Nstep;
+		
+	}
+	flangetype.options.length=0;
+	for (let i = 0; i < ftypetext[lang].length; i++) {		
+		flangetype[flangetype.options.length] = new Option(ftypetext[lang][i],ftypevalue[i])		
+	}
+	nutype.options.length=0;
+	for (let i = 0; i < ntypetext[lang].length; i++) {		
+		nutype[nutype.options.length] = new Option(ntypetext[lang][i],ntypevalue[i])		
+	}
+	cycletype.options.length=0;
+	for (let i = 0; i < ctypetext[lang].length; i++) {		
+		cycletype[cycletype.options.length] = new Option(ctypetext[lang][i],ctypevalue[i])		
+	}
+	calc()
+}
 
 function calc(){
 	//負載設定
@@ -35,10 +134,10 @@ function calc(){
     var minod = (g0n*Math.pow(maxstroke+nutlength/2+lremain,2)/fixtype*Math.pow(10,-7)).toFixed(1); //最小外徑
 	document.getElementById("minod").value  = minod;
 
-    //螺帽選定
-    document.getElementById("suggestod").innerHTML    = "建議最小外徑:"+minod+"mm";
-	document.getElementById("suggestca").innerHTML    = "建議最小動負荷:"+rca+"kg";
-	document.getElementById("suggestlead").innerHTML  = "建議最小導程:"+document.getElementById("minlead").value+"mm";
+	//螺帽選定
+    document.getElementById("Suggestod").innerHTML    = suggestodtext[lang]+minod+"mm";
+	document.getElementById("Suggestca").innerHTML    = suggestdltext[lang]+rca+"kg";
+	document.getElementById("Suggestlead").innerHTML  = suggestldtext[lang]+document.getElementById("minlead").value+"mm";
 
 	//壽命計算
 	lifecal();
@@ -88,10 +187,10 @@ function lifecal() {
 	document.getElementById("life").value  = (Math.pow(ca/fm/fw,3)*Math.pow(10,6)/60/nm).toFixed(0);
 	var liferesult = document.getElementById("liferesult")
 	if (Math.pow(ca/fm/fw,3)*Math.pow(10,6)/60/nm>rlife) {
-		liferesult.value  = "符合需求";
+		liferesult.value  = confirm[lang];
 		liferesult.style.color = "#0000FF"
 	}else{
-		liferesult.value  = "不符合需求";
+		liferesult.value  = notconfirm[lang];
 		liferesult.style.color = "red"
 	}
 
@@ -108,10 +207,10 @@ function lifecal() {
 	document.getElementById("danrpm").value  = (fixtype*od/Math.pow(maxstroke+nutl+lremain,2)*Math.pow(10,7)).toFixed(0);
 	var rpmresult = document.getElementById("rpmresult")
 	if (document.getElementById("danrpm").value > g0n) {
-		rpmresult.value  = "符合需求";
+		rpmresult.value  = confirm[lang];
 		rpmresult.style.color="#0000FF";
 	}else{
-		document.getElementById("rpmresult").value  = "不符合需求";
+		document.getElementById("rpmresult").value  = notconfirm[lang];
 		rpmresult.style.color = "red"
 	}
 }
@@ -138,7 +237,7 @@ function renewnut(){ //依據法蘭型式,單雙螺帽,循環方式找出符合�
 	}
 	//若最終沒有找到符合的螺帽則顯示無此螺帽
 	if (choosenut.options.length==0) { 
-		choosenut[0] = new Option("無此螺帽型號")
+		choosenut[0] = new Option(nutcor[lang])
 	}
 	renew(0);
 }
@@ -188,7 +287,7 @@ function renew(input) { //更新螺帽規格
 	}
 	//若最終沒找到則顯示沒找到
 	if (chooseod.options.length==0) { 
-		chooseod[0] =new Option("無此導程螺帽")
+		chooseod[0] =new Option(nutcor[lang])
 	}
 
 	if (input<3) { //若不是第3階段則繼續下一階段

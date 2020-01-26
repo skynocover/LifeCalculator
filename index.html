@@ -6,308 +6,297 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="stylesheet" href="asset/css/main.css" />
 		<script type="text/javascript" src="file/data.js"></script> <!--載入json-->
+		<script type="text/javascript" src="file/language.js"></script> <!--載入json-->
 		<script type="text/javascript" src="asset/js/calc.js"></script><!--載入js檔-->
 	</head>
-	<body onLoad="calc();renewnut();">	
+	<body onLoad="renewnut();change(0);">	
 		<section class="wrapper style1 align-center">
 				<div id=language>
-					<a>繁體中文</a>
-					<a>English</a>					
-				</div>
-				<div id=menu >
-					<label for="name">計算步驟</label>
-					<select onChange="location=this.options[this.selectedIndex].value;">
-						<option value="#"></option>
-						<option value="#loadset">負載設定</option>
-						<option value="#runset">運轉條件</option>
-						<option value="#cacal">額定動負荷計算</option>
-						<option value="#cacal">軸徑選定</option>		
-						<option value="#nutset">螺帽選定</option>
-						<option value="#lifecal">壽命計算</option>								
-					</select> 
+					<a onclick="change(0)">繁體中文</a>
+					<a onclick="change(1)">English</a>					
 				</div>
 				<div class="inner medium">
 					<div id="loadset" style="height:100px;"></div>
-					<h3 >負載設定</h3>
+					<h3 id="LoadSet">負載設定</h3>
 					<form method="post">
 						<div class="field half" style="width:25%" >
-							<label for="name">工作台重量(kg)</label>
+							<label id="TableW" for="name">工作台重量(kg)</label>
 							<input id="tableweight" type="text" value="1100" onChange="calc()"> 
 						</div>
 						<div class="field half" style="width:25%">
-							<label for="name">工作物重量(kg)</label>
+							<label id="WpW" for="name">工作物重量(kg)</label>
 							<input id="wpweight" type="text" value="800" onChange="calc()"> 
 						</div>
 						<div class="field half" style="width:25%">
-							<label for="name">磨擦係數</label>
+							<label id= "u" for="name">磨擦係數</label>
 							<input id="um" type="text" value="0.1" onChange="calc()"> 
 						</div>
 						<div class="field half" style="width:25%">
-							<label for="message">軸向負荷(kg)</label>
+							<label id= "AF" for="message">軸向負荷(kg)</label>
 							<output id="axiaload"></output>
 						</div>
 						<div style="height:180px;"></div>						
 						<div class="field half" style="width:25%">
-							<label for="name">最高進給速度(m/min)</label>
+							<label id="MaxV"for="name">最高進給速度(m/min)</label>
 							<input id="feedrate" type="text" value="14" onChange="calc()"> 
 						</div>					
 						<div class="field half" style="width:25%">
-							<label for="name">馬達最高轉速(rpm)</label>
+							<label id="MaxRpm" for="name">馬達最高轉速(rpm)</label>
 							<input id="motorpm" type="text" value="2000" onChange="calc()"> 
 						</div>						
 						<div class="field half" style="width:25%">
-							<label for="message">最小導程(mm)</label>
+							<label id="MinLead" for="message">最小導程(mm)</label>
 							<output id="minlead"></output>
 						</div>
 						<div class="field half" style="width:25%">
-							<label for="name">選用導程(mm)</label>
+							<label id="ChooseLead" for="name">選用導程(mm)</label>
 							<input id="lead" type="text" value="10" onChange="calc()"> 
 						</div>						
 					</form>
 					<div class="field half" style="width:25%">								
-						<button onClick="location='#runset'">下一步</button>
+						<button name="Nstep" onClick="location='#runset'">下一步</button>
 					</div>
 					<div style="height:350px;"></div>
 					<div id="runset" style="height:100px;"></div>
-					<h3 >運轉條件</h3>
+					<h3 id="RunSet">運轉條件</h3>
 					<form method="post">
 						<div class="field half"  style="width:33.333%">
-							<label for="name">快送進給阻力(kg)</label>
+							<label id="G0L" for="name">快送進給阻力(kg)</label>
 							<input id="g0f" type="text" value="0" onChange="calc()"> 
 						</div>
 						<div class="field half" style="width:33.333%">
-							<label for="name">快送進給速度(mm/min)</label>
+							<label id="G0F" for="name">快送進給速度(mm/min)</label>
 							<input id="g0v" type="text" value="14000" onChange="calc()"> 
 						</div>
 						<div class="field half" style="width:33.333%">
-							<label for="name">快送進給比例(%)</label>
+							<label id="G0T" for="name">快送進給比例(%)</label>
 							<input id="g0time" type="text" value="30" onChange="calc()"> 
 						</div>	
 						<div class="field half"style="width:33.333%" >
-								<label for="name">輕中切削阻力(kg)</label>
-								<input id="g1f" type="text" value="500" onChange="calc()"> 
-							</div>					
+							<label id="G1L" for="name">輕中切削阻力(kg)</label>
+							<input id="g1f" type="text" value="500" onChange="calc()"> 
+						</div>					
 						<div class="field half" style="width:33.333%">
-							<label for="name">輕中切削進給速度(mm/min)</label>
+							<label id="G1F" for="name">輕中切削進給速度(mm/min)</label>
 							<input id="g1v" type="text" value="600" onChange="calc()"> 
 						</div>
 						<div class="field half" style="width:33.333%">
-								<label for="name">輕中切削比例(%)</label>
-								<input id="g1time" type="text" value="55" onChange="calc()"> 
+							<label id="G1T" for="name">輕中切削比例(%)</label>
+							<input id="g1time" type="text" value="55" onChange="calc()"> 
 						</div>
 						<div class="field half"style="width:33.333%" >
-							<label for="name">重切削阻力(kg)</label>
+							<label id="G2L" for="name">重切削阻力(kg)</label>
 							<input id="g2f" type="text" value="950" onChange="calc()"> 
 						</div>
 						<div class="field half" style="width:33.333%">
-							<label for="name">重切削進給速度(mm/min)</label>
+							<label id="G2F" for="name">重切削進給速度(mm/min)</label>
 							<input id="g2v" type="text" value="120" onChange="calc()"> 
 						</div>	
 						<div class="field half" style="width:33.333%">
-							<label for="name">重切削比例(%)</label>
+							<label id="G2T" for="name">重切削比例(%)</label>
 							<input id="g2time" type="text" value="15" onChange="calc()"> 
 						</div>
 						
 						<div class="field half" style="width:50%">
-							<label for="message">平均負荷(kgf)</label>
+							<label id="MeanL" for="message">平均負荷(kgf)</label>
 							<output id="fm"></output>
 						</div>
 
 						<div class="field half" style="width:50%">
-							<label for="message">平均轉速(rpm)</label>
+							<label id="MeanRpm" for="message">平均轉速(rpm)</label>
 							<output id="nm"></output>
 						</div>						
 					</form>
 					<div class="field half" style="width:25%">								
-							<button  onClick="self.location.href='#loadset'">上一步</button>
+							<button name="Pstep"  onClick="self.location.href='#loadset'">上一步</button>
 						</div>
 						<div class="field half" style="width:25%">								
-							<button  onClick="self.location.href='#cacal'">下一步</button>
+							<button name="Nstep" onClick="self.location.href='#cacal'">下一步</button>
 					</div>
 					
 					<div style="height:100px;"></div>
 					<div id="cacal" style="height:100px;"></div>
-					<h3 >額定動負荷計算</h3>
+					<h3 id="BasicDload" >額定動負荷計算</h3>
 					<form method="post">						
 						<div class="field half">
-							<label for="name">要求壽命(hr)</label>
+							<label id="Rlife" for="name">要求壽命(hr)</label>
 							<input id="rlife" type="text" value="25000" onChange="calc()"> 
 						</div>
 						<div class="field half">
-							<label for="name">負荷係數</label>
+							<label id="SafeC" for="name">負荷係數</label>
 							<input id="fw" type="text" value="1.2" onChange="calc()"> 
 						</div>					
 						<div class="field half">
-							<label for="message">最低動負荷(kgf)</label>
+							<label id="MinLoad" for="message">最低動負荷(kgf)</label>
 							<output id="rca"></output>
 						</div>			
 					 </form>
 					 <div id="odcal" style="height:200px;"></div>
-					 <h3 >軸徑選定</h3>
+					 <h3 id="ScrewDset" >軸徑選定</h3>
 					 <form method="post">						
 						 <div class="field half">
-							 <label for="name">最大行程(mm)</label>
+							 <label id="MaxStork" for="name">最大行程(mm)</label>
 							 <input id="maxstroke" type="text" value="1000" onChange="calc()"> 
 						 </div>
 						 <div class="field half">
-							 <label for="name">螺帽長度(mm)</label>
+							 <label id="NutL" for="name">螺帽長度(mm)</label>
 							 <input id="nutlength" type="text" value="200" onChange="calc()"> 
 						 </div>		
 						 <div class="field half">
-							<label for="name">軸端預留量(mm)</label>
+							<label id="Unthread" for="name">軸端預留量(mm)</label>
 							<input id="lremain" type="text" value="200" onChange="calc()"> 
 						</div>
 						<div class="field half">
-							<label for="name">安裝方式</label>
+							<label id="Shaftmount" for="name">安裝方式</label>
 							<select id="fixtype" onChange="calc()" >
-                                        <option value="9.7">支持-支持</option>
-                                        <option value="15.1">固定-支持</option>
-                                        <option value="21.9">固定-固定</option>
-										<option value="3.4">固定-自由</option>										
+                                <option id="SupSup" value="9.7">支持-支持</option>
+                                <option id="FixSup" value="15.1">固定-支持</option>
+                                <option id="FixFix" value="21.9">固定-固定</option>
+								<option id="FixFree" value="3.4">固定-自由</option>										
                             </select> 
 						</div>				
 						 <div class="field half">
-							 <label for="message">最小螺桿根徑(mm)</label>
+							 <label id="MinD" for="message">最小螺桿根徑(mm)</label>
 							 <output id="minod"></output>
 						 </div>						
 					</form>					
 					<div class="field half" style="width:25%">								
-						<button  onClick="self.location.href='#runset'">上一步</button>
+						<button name="Pstep" onClick="self.location.href='#runset'">上一步</button>
 					</div>
 					<div class="field half" style="width:25%">								
-						<button  onClick="self.location.href='#nutset'">下一步</button>
+						<button name="Nstep" onClick="self.location.href='#nutset'">下一步</button>
 					</div>					
 					<div style="height:200px;"></div>
 					<div id="nutset" style="height:100px;"></div>
-					<h3 >螺帽選定</h3>
+					<h3 id="NutSet" >螺帽選定</h3>
 					<form method="post">
 						<div class="field half" style="width:25%">
-							<label for="name">法蘭型式</label>
+							<label id="Flangetype" for="name">法蘭型式</label>
 							<select id="flangetype"   onChange="renewnut()" >
-								<option value="F">有法蘭</option>
-								<option value="R">無法蘭</option>
-								<option value="S">方型螺帽</option>								
+								<option id="WithF" value="F">有法蘭</option>
+								<option id="WithoutF" value="R">無法蘭</option>
+								<option id="Snut" value="S">方型螺帽</option>								
 							</select> 
 						</div>						
 						<div class="field half" style="width:25%">
-							<label for="name">螺帽型式</label>
+							<label id="Nutype" for="name">螺帽型式</label>
 							<select id="nutype"   onChange="renewnut()" >
-								<option value="S">單螺帽</option>
-								<option value="D">雙螺帽</option>
-								<option value="O">偏位導程</option>								
+								<option id="Single" value="S">單螺帽</option>
+								<option id="Double" value="D">雙螺帽</option>
+								<option id="LeadOS" value="O">偏位導程</option>								
 							</select> 
 						</div>
 						<div class="field half" style="width:25%" >
-							<label for="name">循環方式</label>
+							<label id="CirculType" for="name">循環方式</label>
 							<select id="cycletype"   onChange="renewnut()" >
-									<option value="D">端塞</option>
-									<option value="I">內循環</option>									
-									<option value="K">端蓋</option>
-									<option value="W">外循環圓周型</option>
-									<option value="B">外循環圓周型(無固定座)</option>
-									<option value="V">外循環管凸出型</option>
+								<option id="ED" value="D">端塞</option>
+								<option id="ID" value="I">內循環</option>									
+								<option id="EX" value="K">端蓋</option>
+								<option id="EI" value="W">外循環圓周型</option>
+								<option id="Einon" value="B">外循環圓周型(無固定座)</option>
+								<option id="EE" value="V">外循環管凸出型</option>
 							</select>
 						</div>						
 						<div class="field half" style="width:25%">
-							<label for="message">螺帽型式</label>
+							<label id="Choosenut" for="message">螺帽型式</label>
 							<select id="choosenut" onChange="renew(0)">
 								<option value="FSDC">FSDC</option>
 							</select>
 						</div>
 						<div class="field half" style="width:25%">
-								<label for="message" id="suggestod">螺桿外徑</label>
+								<label id="Suggestod" for="message" >螺桿外徑</label>
 								<select id="chooseod" onChange="renew(1)">
 									<option value="12">12</option>
 								</select>
 						</div>
 						<div class="field half" style="width:25%">
-								<label for="message" id="suggestlead">導程</label>
+								<label id="Suggestlead" for="message" >導程</label>
 								<select id="chooselead" onChange="renew(2)">
 									<option value="5">5</option>										
 								</select>
 						</div>
 						
 						<div class="field half" style="width:25%">
-								<label for="name">鋼珠直徑</label>
+								<label id="BD" for="name">鋼珠直徑</label>
 								<select id="choosebd" onChange="renew(3)">
 									<option value="2.381">2.381</option>										
 								</select>
 						</div>
 						<div style="height:100px;"></div>
 						<div class="field half" style="width:25%">
-								<label for="name">循環圈數</label>
+								<label id="ET" for="name">循環圈數</label>
 								<select id="choosecycle" onChange="showpara() " >
 										<option value="3">3</option>										
 								</select>
 						</div>
 						<div class="field half" style="width:25%">
-							<label for="message" id="suggestca">動負荷(kg)</label>
+							<label id="Suggestca" for="message" >動負荷(kg)</label>
 							<output id="ca">無此螺帽</output>
 						</div>
 						<div class="field half" style="width:25%">
-							<label for="message"> 靜負荷(kg)</label>
+							<label id="Sload" for="message"> 靜負荷(kg)</label>
 							<output id="c0">無此螺帽</output>
 						</div>	
 						<div class="field half" style="width:25%">
-							<label for="message" >帽徑(mm)</label>
+							<label id="NutOD" for="message" >帽徑(mm)</label>
 							<output id="nuto">無此螺帽</output>
 						</div>
 						<div class="field half" style="width:25%">
-							<label for="message" >帽長(mm)</label>
+							<label id="NutLen" for="message" >帽長(mm)</label>
 							<output id="nutl">無此螺帽</output>
 					</div>								
 					</form>
 					<div style="height:100px;"></div>
 						<div class="field half" style="width:25%">								
-							<button  onClick="self.location.href='#cacal'">上一步</button>
+							<button name="Pstep" onClick="self.location.href='#cacal'">上一步</button>
 						</div>
 						<div class="field half" style="width:25%">								
-							<button  onClick="self.location.href='#lifecal'">下一步</button>
+							<button name="Nstep" onClick="self.location.href='#lifecal'">下一步</button>
 						</div>
 					<div style="height:200px;"></div>
 					<div id="lifecal" style="height:100px;"></div>
-					<h3>壽命計算</h3>
+					<h3 id="LifeCal">壽命計算</h3>
 					<form method="post">						
 						<div class="field half">
-							<label for="name">螺帽動負荷(kgf)</label>
+							<label id="NutDynamic" for="name">螺帽動負荷(kgf)</label>
 							<output id="nutca">無此螺帽</output>
 						</div>
 						<div class="field half">
-							<label for="name">平均轉速</label>
+							<label id="Mrpm" for="name">平均轉速</label>
 							<output id="lifenm">無此螺帽</output>
 						</div>
 						<div class="field half">
-							<label for="name">平均負荷</label>
+							<label id="Mload" for="name">平均負荷</label>
 							<output id="lifefm">無此螺帽</output>
 						</div>
 						<div class="field half">
-							<label for="name">負荷係數</label>
+							<label id="SO" for="name">負荷係數</label>
 							<output id="lifefw"></output>
 						</div>
 						<div class="field half">
-							<label for="message">壽命預測(hr)</label>
+							<label id="LifeP" for="message">壽命預測(hr)</label>
 							<output id="life"></output>
 						</div>				
 						<div class="field half">
-							<label for="message">壽命結果</label>
+							<label id="LifeR" for="message">壽命結果</label>
 							<output id="liferesult"></output>
 						</div>	
 						<div style="height:150px;"></div>
 						<div class="field half">
-							<label for="name">選用螺桿直徑(mm)</label>
+							<label id="CS" for="name">選用螺桿直徑(mm)</label>
 							<output id="od"></output>
 						</div>
 						<div class="field half">
-							<label for="message">危險轉速(rpm)</label>
+							<label id="Drpm" for="message">危險轉速(rpm)</label>
 							<output id="danrpm"></output>
 						</div>				
 						<div class="field half">
-							<label for="message">轉速符合</label>
+							<label id="RpmR" for="message">轉速符合</label>
 							<output id="rpmresult"></output>
 						</div>						
 					</form>
 					<div class="field half" style="width:25%">								
-						<button onClick="self.location.href='#nutset'">上一步</button>
+						<button name="Pstep" onClick="self.location.href='#nutset'">上一步</button>
 					</div>
 					<div style="height:400px;"></div>
 				</div>
