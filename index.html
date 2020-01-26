@@ -6,19 +6,25 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="stylesheet" href="asset/css/main.css" />
 		<script type="text/javascript" src="file/data.js"></script> <!--載入json-->
-		<script type="text/javascript" src="asset/js/calc.js"></script><!--載入js檔-->		
+		<script type="text/javascript" src="asset/js/calc.js"></script><!--載入js檔-->
 	</head>
-	<body onLoad="load()">	
+	<body onLoad="calc();renewnut();">	
 		<section class="wrapper style1 align-center">
-				<div id=menu>
-					<ul >
-						<li><a href="#loadset">負載設定</a>
-						<li><a href="#runset">運轉條件</a>
-						<li><a href="#cacal">額定動負荷計算</a>
-						<li><a href="#cacal">軸徑選定</a>
-						<li><a href="#nutset">螺帽選定</a>			
-						<li><a href="#lifecal">壽命計算</a>
-					</ul>
+				<div id=language>
+					<a>繁體中文</a>
+					<a>English</a>					
+				</div>
+				<div id=menu >
+					<label for="name">計算步驟</label>
+					<select onChange="location=this.options[this.selectedIndex].value;">
+						<option value="#"></option>
+						<option value="#loadset">負載設定</option>
+						<option value="#runset">運轉條件</option>
+						<option value="#cacal">額定動負荷計算</option>
+						<option value="#cacal">軸徑選定</option>		
+						<option value="#nutset">螺帽選定</option>
+						<option value="#lifecal">壽命計算</option>								
+					</select> 
 				</div>
 				<div class="inner medium">
 					<div id="loadset" style="height:100px;"></div>
@@ -38,19 +44,17 @@
 						</div>
 						<div class="field half" style="width:25%">
 							<label for="message">軸向負荷(kg)</label>
-							<output id="axiaload"  ></output>
+							<output id="axiaload"></output>
 						</div>
 						<div style="height:180px;"></div>						
 						<div class="field half" style="width:25%">
 							<label for="name">最高進給速度(m/min)</label>
 							<input id="feedrate" type="text" value="14" onChange="calc()"> 
-						</div>
-					
+						</div>					
 						<div class="field half" style="width:25%">
 							<label for="name">馬達最高轉速(rpm)</label>
 							<input id="motorpm" type="text" value="2000" onChange="calc()"> 
-						</div>
-						
+						</div>						
 						<div class="field half" style="width:25%">
 							<label for="message">最小導程(mm)</label>
 							<output id="minlead"></output>
@@ -59,13 +63,13 @@
 							<label for="name">選用導程(mm)</label>
 							<input id="lead" type="text" value="10" onChange="calc()"> 
 						</div>						
-					 </form>
-					 <div class="field half" style="width:25%">								
-							<button  onClick="self.location.href='#runset'">下一步</button>
+					</form>
+					<div class="field half" style="width:25%">								
+						<button onClick="location='#runset'">下一步</button>
 					</div>
-					 <div style="height:350px;"></div>
-					 <div id="runset" style="height:100px;"></div>
-					 <h3 >運轉條件</h3>
+					<div style="height:350px;"></div>
+					<div id="runset" style="height:100px;"></div>
+					<h3 >運轉條件</h3>
 					<form method="post">
 						<div class="field half"  style="width:33.333%">
 							<label for="name">快送進給阻力(kg)</label>
@@ -113,17 +117,17 @@
 							<label for="message">平均轉速(rpm)</label>
 							<output id="nm"></output>
 						</div>						
-					 </form>
-					 <div class="field half" style="width:25%">								
+					</form>
+					<div class="field half" style="width:25%">								
 							<button  onClick="self.location.href='#loadset'">上一步</button>
 						</div>
 						<div class="field half" style="width:25%">								
 							<button  onClick="self.location.href='#cacal'">下一步</button>
 					</div>
 					
-					 <div style="height:100px;"></div>
-					 <div id="cacal" style="height:100px;"></div>
-					 <h3 >額定動負荷計算</h3>
+					<div style="height:100px;"></div>
+					<div id="cacal" style="height:100px;"></div>
+					<h3 >額定動負荷計算</h3>
 					<form method="post">						
 						<div class="field half">
 							<label for="name">要求壽命(hr)</label>
@@ -175,7 +179,7 @@
 					</div>					
 					<div style="height:200px;"></div>
 					<div id="nutset" style="height:100px;"></div>
-					 <h3 >螺帽選定</h3>
+					<h3 >螺帽選定</h3>
 					<form method="post">
 						<div class="field half" style="width:25%">
 							<label for="name">法蘭型式</label>
@@ -252,16 +256,16 @@
 							<label for="message" >帽長(mm)</label>
 							<output id="nutl">無此螺帽</output>
 					</div>								
-					 </form>
-					 <div style="height:100px;"></div>
+					</form>
+					<div style="height:100px;"></div>
 						<div class="field half" style="width:25%">								
-								<button  onClick="self.location.href='#cacal'">上一步</button>
-							</div>
-							<div class="field half" style="width:25%">								
-								<button  onClick="self.location.href='#lifecal'">下一步</button>
+							<button  onClick="self.location.href='#cacal'">上一步</button>
 						</div>
-					 <div style="height:200px;"></div>
-					 <div id="lifecal" style="height:100px;"></div>
+						<div class="field half" style="width:25%">								
+							<button  onClick="self.location.href='#lifecal'">下一步</button>
+						</div>
+					<div style="height:200px;"></div>
+					<div id="lifecal" style="height:100px;"></div>
 					<h3>壽命計算</h3>
 					<form method="post">						
 						<div class="field half">
@@ -298,13 +302,13 @@
 							<output id="danrpm"></output>
 						</div>				
 						<div class="field half">
-						  <label for="message">轉速符合</label>
-						  <output id="rpmresult"></output>
+							<label for="message">轉速符合</label>
+							<output id="rpmresult"></output>
 						</div>						
 					</form>
-						<div class="field half" style="width:25%">								
-							<button  onClick="self.location.href='#nutset'">上一步</button>
-						</div>
+					<div class="field half" style="width:25%">								
+						<button onClick="self.location.href='#nutset'">上一步</button>
+					</div>
 					<div style="height:400px;"></div>
 				</div>
 		</section>

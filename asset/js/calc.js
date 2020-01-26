@@ -1,19 +1,14 @@
 var mydata = JSON.parse(JSON.stringify(ALL)); //將js檔案讀出來
 
-function load() {
-	calc()
-	renewnut()
-}
-
 function calc(){
 	//負載設定
 	var weight   = parseFloat(document.getElementById('tableweight').value) +  parseFloat(document.getElementById('wpweight').value);
-	var motorpm  = parseFloat(document.getElementById('motorpm').value); //馬達最高轉速
-	var feedrate = parseFloat(document.getElementById('feedrate').value); //進給速度
+	var motorpm  = parseFloat(document.getElementById('motorpm').value);   //馬達最高轉速
+	var feedrate = parseFloat(document.getElementById('feedrate').value);  //進給速度
     var axiaload = weight*parseFloat(document.getElementById('um').value); //軸向負荷
 	
 	document.getElementById("minlead").value  = (feedrate*1000/motorpm).toFixed(0); //最小建議導程
-	document.getElementById("axiaload").value  = axiaload;
+	document.getElementById("axiaload").value  = axiaload.toFixed(0);
 	
 	//運轉條件	
 	var lead  = parseFloat(document.getElementById('lead').value); 	
@@ -81,8 +76,8 @@ function lifecal() {
 	//壽命結果
 	var axiaload = parseFloat(document.getElementById('axiaload').value);	
 	var lead    = parseFloat(document.getElementById('chooselead').value);
-	var ca = document.getElementById('nutca').value; //螺帽動負荷
-	var fw = document.getElementById('fw').value; //負荷係數
+	var ca = document.getElementById('nutca').value; 	//螺帽動負荷
+	var fw = document.getElementById('fw').value; 		//負荷係數
 	var rlife = document.getElementById('rlife').value; //要求壽命
 
 	var fm = fmnmcal(lead,axiaload).fm
@@ -225,5 +220,3 @@ function showpara() {
 	}
 	lifecal();
 }
-
-	
