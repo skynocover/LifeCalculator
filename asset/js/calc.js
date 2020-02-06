@@ -112,8 +112,9 @@ function calc(){
 	//運轉條件	
 	var lead  = parseFloat(document.getElementById('lead').value); 	
 
-	var fm = fmnmcal(lead,axiaload).fm //平均負荷
-	var nm = fmnmcal(lead,axiaload).nm //平均轉速
+	var m = fmnmcal(lead,axiaload)
+	var fm = m.fm //平均負荷
+	var nm = m.nm //平均轉速
 	document.getElementById("fm").value = fm.toFixed(0);
 	document.getElementById("nm").value = nm.toFixed(0);
 
@@ -143,29 +144,30 @@ function calc(){
 	lifecal();
 }
 
+class load {
+	constructor(lf, lv, ltime,lead) {
+		this.f = parseFloat(document.getElementById(lf).value);
+		this.v = parseFloat(document.getElementById(lv).value);
+		this.time = parseFloat(document.getElementById(ltime).value);
+		this.n = this.v/lead;
+	}
+}
+
 //計算平均轉速及平均負荷
 function fmnmcal(lead,axiaload) {
-	var g0f     = parseFloat(document.getElementById('g0f').value);
-	var g0v     = parseFloat(document.getElementById('g0v').value);
-	var g0time  = parseFloat(document.getElementById('g0time').value); 
-	var g1v     = parseFloat(document.getElementById('g1v').value); 
-	var g1f     = parseFloat(document.getElementById('g1f').value); 
-	var g1time  = parseFloat(document.getElementById('g1time').value); 
-	var g2v     = parseFloat(document.getElementById('g2v').value); 
-	var g2f     = parseFloat(document.getElementById('g2f').value);
-	var g2time  = parseFloat(document.getElementById('g2time').value); 
 
-	var g0n = g0v/lead; //轉速
-	var g1n = g1v/lead;
-	var g2n = g2v/lead;
+	var g0 = new load('g0f','g0v','g0time',lead);
+	var g1 = new load('g1f','g1v','g1time',lead);
+	var g2 = new load('g2f','g2v','g2time',lead);
 
-	var fm  = Math.pow(axiaload+g0f,3)*g0n*g0time+Math.pow(axiaload+g1f,3)*g1n*g1time+Math.pow(axiaload+g2f,3)*g2n*g2time;
-	fm = fm/(g0n*g0time+g1n*g1time+g2n*g2time)
+	var fm = Math.pow(axiaload+g0.f,3)*g0.n*g0.time+Math.pow(axiaload+g1.f,3)*g1.n*g1.time+Math.pow(axiaload+g2.f,3)*g2.n*g2.time;
+	fm = fm/(g0.n*g0.time+g1.n*g1.time+g2.n*g2.time)
 	fm = Math.pow(fm,1/3) //平均負荷
-	var nm = ((g0n*g0time+g1n*g1time+g2n*g2time)/(g0time+g1time+g2time)) //平均轉速	
+	var nm = ((g0.n*g0.time+g1.n*g1.time+g2.n*g2.time)/(g0.time+g1.time+g2.time)) //平均轉速	
 
 	return{
-		fm,nm
+		'fm':fm,
+		'nm':nm
 	}
 }
 
@@ -179,9 +181,10 @@ function lifecal() {
 	var fw = document.getElementById('fw').value; 		//負荷係數
 	var rlife = document.getElementById('rlife').value; //要求壽命
 
-	var fm = fmnmcal(lead,axiaload).fm
-	var nm = fmnmcal(lead,axiaload).nm
-
+	var m = fmnmcal(lead,axiaload)
+	var fm = m.fm
+	var nm = m.nm
+	
 	document.getElementById("lifefm").value = fm.toFixed(0);
 	document.getElementById("lifenm").value = nm.toFixed(0);
 	document.getElementById("life").value  = (Math.pow(ca/fm/fw,3)*Math.pow(10,6)/60/nm).toFixed(0);
@@ -221,6 +224,7 @@ function checkarr(arr ,choose , input) { //確認arr內是否有input ,若無則
 		choose[choose.options.length] = new Option(input)
 	}
 }
+
 function renewnut(){ //依據法蘭型式,單雙螺帽,循環方式找出符合的螺帽型式
 	var flangetype = document.getElementById('flangetype').value;
     var nutype = document.getElementById('nutype').value;
@@ -249,22 +253,9 @@ function renew(input) { //更新螺帽規格
 	var chooselead = document.getElementById('chooselead'); //導程
 	var choosebd = document.getElementById("choosebd");	//珠徑
 	var choosecycle = document.getElementById("choosecycle"); //循環圈數
-	
-	//根據當前階段初始化下一階段的select
-	switch (input) {
-		case 0:
-			chooseod.options.length=0;
-			break;
-		case 1:
-			chooselead.options.length=0;
-			break;
-		case 2:
-			choosebd.options.length=0;
-			break;			
-		default:
-			choosecycle.options.length = 0;
-			break;
-	}	
+
+	var choose = [chooseod,chooselead,choosebd,choosecycle]
+	choose[input].options.length = 0
 
 	var check = new Array();
 
@@ -317,5 +308,6 @@ function showpara() {
 		document.getElementById("nuto").value=mydata[i].帽徑
 		}
 	}
+	
 	lifecal();
 }
