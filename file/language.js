@@ -1,9 +1,8 @@
-{
-	Language= [
-		{
-			"LoadSet": "負載設定",
-			"TableW": "工作台重量(kg)",
-			"WpW": "工作物重量(kg)",
+Language= [
+	{
+		"LoadSet": "負載設定",
+		"TableW": "工作台重量(kg)",
+		"WpW": "工作物重量(kg)",
 			"u": "摩擦係數",
 			"AF": "軸向負荷(kg)",
 			"MaxV": "最高進給速度(m/min)",
@@ -60,7 +59,13 @@
 			"Drpm": "危險轉速(rpm)",
 			"RpmR": "轉速符合",
 			"Pstep": "上一步",
-			"Nstep": "下一步"
+			"Nstep": "下一步",
+			"confirm": "符合需求",
+			"notconfirm": "不符合需求",
+			"nonut": "無此螺帽",
+			"suggestodtext": "建議最小外徑:",
+			"suggestdltext": "建議最小動負荷:",
+			"suggestldtext": "建議最小導程:"
 		},
 		{
 			"LoadSet": "LoadSetting",
@@ -122,7 +127,12 @@
 			"Drpm": "Danger RPM",
 			"RpmR": "RPM result",
 			"Pstep": "PreviousStep",
-			"Nstep": "NextStep"
+			"Nstep": "NextStep",
+			"confirm": "Confirm",
+			"notconfirm": "Not confirm",
+			"nonut": "No such nut",
+			"suggestodtext": "Suggest OD >",
+			"suggestdltext": "Suggest dynamic load >",
+			"suggestldtext": "Suggest lead >"
 		}
-	]
-}
+]

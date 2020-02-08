@@ -1,18 +1,12 @@
 var mydata = JSON.parse(JSON.stringify(ALL)); //將js檔案讀出來
 var table = JSON.parse(JSON.stringify(Language)); //將js檔案讀出來
 var lang=0;
-var confirm = ["符合需求","Confirm"]
-var notconfirm = ["不符合需求","Not confirm"]
-var nutcor = ["無此螺帽","No such nut"]
 var ftypetext = [["有法蘭","無法蘭","方形螺帽"],["Flange type","None flange type","Square nut"]]
 var ftypevalue = ["F","R","S"]
 var ntypetext = [["單螺帽","雙螺帽","偏位導程"],["Single nut","Double nut","Lead offset nut"]]
 var ntypevalue = ["S","D","O"]
 var ctypetext = [["端塞","內循環","端蓋","外循環圓周型","外循環圓周型(無固定座)","外循環管凸出型"],["End decector"," Internal ball circulation"," External extrusive circulation"," External immersion circulation"," External immersion circulation ( non-bracked)"," External extrusive circulation"]]
 var ctypevalue = ["D","I","K","W","B","V"]
-var suggestodtext = ["建議最小外徑:","Suggest min OD:"]
-var suggestdltext = ["建議最小動負荷:","Suggest dynamic load:"]
-var suggestldtext = ["建議最小導程:","Suggest min lead:"]
 
 function change(language) {
 	lang = language;
@@ -106,8 +100,9 @@ function calc(){
 	var feedrate = parseFloat(document.getElementById('feedrate').value);  //進給速度
     var axiaload = weight*parseFloat(document.getElementById('um').value); //軸向負荷
 	
-	document.getElementById("minlead").value  = (feedrate*1000/motorpm).toFixed(0); //最小建議導程
-	document.getElementById("axiaload").value  = axiaload.toFixed(0);
+	var minlead  = (feedrate*1000/motorpm).toFixed(0); //最小建議導程
+	document.getElementById("minlead").value  = minlead;
+	document.getElementById("axiaload").value = axiaload.toFixed(0);
 	
 	//運轉條件	
 	var lead  = parseFloat(document.getElementById('lead').value); 	
@@ -120,7 +115,7 @@ function calc(){
 
 	//動負荷計算
 	var rlife = parseFloat(document.getElementById('rlife').value); 
-    var fw = parseFloat(document.getElementById('fw').value);
+    var fw    = parseFloat(document.getElementById('fw').value);
 
     var rca = (Math.pow(rlife*60*nm,1/3)*fm*fw/100).toFixed(0); //最低動負荷
 	document.getElementById("rca").value  = rca;
@@ -136,9 +131,9 @@ function calc(){
 	document.getElementById("minod").value  = minod;
 
 	//螺帽選定
-    document.getElementById("Suggestod").innerHTML    = suggestodtext[lang]+minod+"mm";
-	document.getElementById("Suggestca").innerHTML    = suggestdltext[lang]+rca+"kg";
-	document.getElementById("Suggestlead").innerHTML  = suggestldtext[lang]+document.getElementById("minlead").value+"mm";
+    document.getElementById("Suggestod").innerHTML    = table[lang].suggestodtext+minod+"mm";
+	document.getElementById("Suggestca").innerHTML    = table[lang].suggestdltext+rca+"kg";
+	document.getElementById("Suggestlead").innerHTML  = table[lang].suggestldtext+minlead+"mm";
 
 	//壽命計算
 	lifecal();
@@ -190,30 +185,30 @@ function lifecal() {
 	document.getElementById("life").value  = (Math.pow(ca/fm/fw,3)*Math.pow(10,6)/60/nm).toFixed(0);
 	var liferesult = document.getElementById("liferesult")
 	if (Math.pow(ca/fm/fw,3)*Math.pow(10,6)/60/nm>rlife) {
-		liferesult.value  = confirm[lang];
+		liferesult.value  = table[lang].confirm;
 		liferesult.style.color = "#0000FF"
 	}else{
-		liferesult.value  = notconfirm[lang];
+		liferesult.value  = table[lang].notconfirm;
 		liferesult.style.color = "red"
 	}
 
 	//轉速結果
 	document.getElementById("od").value = document.getElementById("chooseod").value;
-	var fixtype = document.getElementById("fixtype").value;
-	var od = document.getElementById("od").value;
+	var fixtype   = document.getElementById("fixtype").value;
+	var od        = document.getElementById("od").value;
 	var maxstroke = parseFloat(document.getElementById("maxstroke").value);
-	var nutl = parseFloat(document.getElementById("nutl").value);
-	var lremain = parseFloat(document.getElementById("lremain").value);
-	var g0v     = parseFloat(document.getElementById('g0v').value);
-	var g0n = g0v/lead;
+	var nutl      = parseFloat(document.getElementById("nutl").value);
+	var lremain   = parseFloat(document.getElementById("lremain").value);
+	var g0v       = parseFloat(document.getElementById('g0v').value);
+	var g0n       = g0v/lead;
 
 	document.getElementById("danrpm").value  = (fixtype*od/Math.pow(maxstroke+nutl+lremain,2)*Math.pow(10,7)).toFixed(0);
 	var rpmresult = document.getElementById("rpmresult")
 	if (document.getElementById("danrpm").value > g0n) {
-		rpmresult.value  = confirm[lang];
+		rpmresult.value  = table[lang].confirm;
 		rpmresult.style.color="#0000FF";
 	}else{
-		document.getElementById("rpmresult").value  = notconfirm[lang];
+		document.getElementById("rpmresult").value  = table[lang].notconfirm;
 		rpmresult.style.color = "red"
 	}
 }
@@ -224,13 +219,12 @@ function checkarr(arr ,choose , input) { //確認arr內是否有input ,若無則
 		choose[choose.options.length] = new Option(input)
 	}
 }
-
 function renewnut(){ //依據法蘭型式,單雙螺帽,循環方式找出符合的螺帽型式
 	var flangetype = document.getElementById('flangetype').value;
-    var nutype = document.getElementById('nutype').value;
-	var cycletype = document.getElementById('cycletype').value;	
+    var nutype     = document.getElementById('nutype').value;
+	var cycletype  = document.getElementById('cycletype').value;	
 	//初始化螺帽型式
-	var choosenut = document.getElementById("choosenut"); 
+	var choosenut  = document.getElementById("choosenut"); 
 		choosenut.options.length=0;
 	//新建確認用的陣列
 	var check = new Array();
@@ -241,17 +235,16 @@ function renewnut(){ //依據法蘭型式,單雙螺帽,循環方式找出符合�
 	}
 	//若最終沒有找到符合的螺帽則顯示無此螺帽
 	if (choosenut.options.length==0) { 
-		choosenut[0] = new Option(nutcor[lang])
+		choosenut[0] = new Option(table[lang].nonut)
 	}
-	renew(0);
 }
 
 function renew(input) { //更新螺帽規格	
-	var choosenut = document.getElementById('choosenut').value; //找出螺帽規格
+	var choosenut   = document.getElementById('choosenut').value; //找出螺帽規格
 	//將4個select宣告出來
-	var chooseod = document.getElementById('chooseod'); //外徑
-	var chooselead = document.getElementById('chooselead'); //導程
-	var choosebd = document.getElementById("choosebd");	//珠徑
+	var chooseod    = document.getElementById('chooseod'); //外徑
+	var chooselead  = document.getElementById('chooselead'); //導程
+	var choosebd    = document.getElementById("choosebd");	//珠徑
 	var choosecycle = document.getElementById("choosecycle"); //循環圈數
 
 	var choose = [chooseod,chooselead,choosebd,choosecycle]
@@ -278,7 +271,7 @@ function renew(input) { //更新螺帽規格
 	}
 	//若最終沒找到則顯示沒找到
 	if (chooseod.options.length==0) { 
-		chooseod[0] =new Option(nutcor[lang])
+		chooseod[0] =new Option(table[lang].nonut)
 	}
 
 	if (input<3) { //若不是第3階段則繼續下一階段
@@ -308,6 +301,5 @@ function showpara() {
 		document.getElementById("nuto").value=mydata[i].帽徑
 		}
 	}
-	
 	lifecal();
 }

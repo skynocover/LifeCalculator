@@ -5,12 +5,11 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="stylesheet" href="asset/css/main.css" />
-		<script type="text/javascript" src="asset/js/jquery-3.4.1.min.js"></script> <!--載入json-->
-		<script type="text/javascript" src="file/data.js"></script> <!--載入螺帽json-->
-		<script type="text/javascript" src="file/language.js"></script> <!--載入語言json-->
+		<script type="text/javascript" src="file/data.js"></script> <!--載入json-->
+		<script type="text/javascript" src="file/language.js"></script> <!--載入json-->
 		<script type="text/javascript" src="asset/js/calc.js"></script><!--載入js檔-->
 	</head>
-	<body onLoad="renewnut();change(0);">	
+	<body onLoad="renewnut();renew(0);change(0);">	
 		<section class="wrapper style1 align-center">
 				<div id=language>
 					<a onclick="change(0)">繁體中文</a>
@@ -173,7 +172,7 @@
 					<form method="post">
 						<div class="field half" style="width:25%">
 							<label id="Flangetype" for="name">法蘭型式</label>
-							<select id="flangetype"   onChange="renewnut()" >
+							<select id="flangetype"   onChange="renewnut(),renew(0);" >
 								<option id="WithF" value="F">有法蘭</option>
 								<option id="WithoutF" value="R">無法蘭</option>
 								<option id="Snut" value="S">方型螺帽</option>								
@@ -181,7 +180,7 @@
 						</div>						
 						<div class="field half" style="width:25%">
 							<label id="Nutype" for="name">螺帽型式</label>
-							<select id="nutype"   onChange="renewnut()" >
+							<select id="nutype"   onChange="renewnut(),renew(0);" >
 								<option id="Single" value="S">單螺帽</option>
 								<option id="Double" value="D">雙螺帽</option>
 								<option id="LeadOS" value="O">偏位導程</option>								
@@ -189,7 +188,7 @@
 						</div>
 						<div class="field half" style="width:25%" >
 							<label id="CirculType" for="name">循環方式</label>
-							<select id="cycletype"   onChange="renewnut()" >
+							<select id="cycletype"   onChange="renewnut(),renew(0);" >
 								<option id="ED" value="D">端塞</option>
 								<option id="ID" value="I">內循環</option>									
 								<option id="EX" value="K">端蓋</option>
@@ -226,7 +225,7 @@
 						<div style="height:100px;"></div>
 						<div class="field half" style="width:25%">
 								<label id="ET" for="name">循環圈數</label>
-								<select id="choosecycle" onChange="showpara() " >
+								<select id="choosecycle" onChange="showpara()" >
 										<option value="3">3</option>										
 								</select>
 						</div>
