@@ -1,5 +1,7 @@
 # LifeCalculator
 
+[Link](https://skynocover.github.io/LifeCalculator/)
+
 ## unrelease
 
 - 偵測輸入值的錯誤
